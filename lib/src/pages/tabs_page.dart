@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TabsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Material App Bar'),
+    return ChangeNotifierProvider(
+      create: (_) => new _NavegacionModel(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Material App Bar'),
+        ),
+        body: _Paginas(),
+        bottomNavigationBar: _Navegacion(),
       ),
-      body: _Paginas(),
-      bottomNavigationBar: _Navegacion(),
     );
   }
 }
@@ -16,12 +20,16 @@ class TabsPage extends StatelessWidget {
 class _Navegacion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(currentIndex: 0, items: [
-      BottomNavigationBarItem(
-          icon: Icon(Icons.person_outline), title: Text('Para ti')),
-      BottomNavigationBarItem(
-          icon: Icon(Icons.public), title: Text('Encabezados')),
-    ]);
+    final navegacionModel = Provider.of<_NavegacionModel>(context);
+    return BottomNavigationBar(
+        currentIndex: navegacionModel.paginaActual,
+        onTap: (i) => navegacionModel.paginaActual = i,
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline), label: 'Para ti'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.public), label: 'Encabezados'),
+        ]);
   }
 }
 
@@ -40,5 +48,16 @@ class _Paginas extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class _NavegacionModel with ChangeNotifier {
+  int _paginaActual = 0;
+
+  int get paginaActual => this._paginaActual;
+
+  set paginaActual(int valor) {
+    this._paginaActual = valor;
+    notifyListeners();
   }
 }
