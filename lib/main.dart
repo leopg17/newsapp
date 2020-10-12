@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => NewsService()),
+        ChangeNotifierProvider(create: (_) => new NewsService()),
         /*
         Si ocuparamos mas de una provider debemos de agregar una linea por cada uno:
         ChangeNotifierProvider(create: (_)=>NewsService()),
