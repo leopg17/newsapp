@@ -10,7 +10,7 @@ class TabsPage extends StatelessWidget {
       create: (_) => new _NavegacionModel(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Material App Bar'),
+          title: Text('US News'),
         ),
         body: _Paginas(),
         bottomNavigationBar: _Navegacion(),
